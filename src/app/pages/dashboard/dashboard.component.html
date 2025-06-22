@@ -1,0 +1,47 @@
+<section>
+    <h2 class="title">Medals per Country</h2>
+
+    <div class="details-container">
+        <div class="nb-of-olympics">
+            <span class="label">Number of olympics</span>
+            <strong class="value">{{ totalOlympicsNb() }}</strong>
+        </div>
+        <div class="nb-of-countries">
+            <span class="label">Number of countries</span>
+            <strong class="value">{{ olympicCountries().length }}</strong>
+        </div>
+    </div>
+
+    <div class="chart-wrapper">
+        <!-- [view]="pieChartOptions().view" -->
+        <ngx-charts-pie-chart
+            [results]="pieChartOptions().results"
+            [trimLabels]="pieChartOptions().trimLabels"
+            [legend]="pieChartOptions().legend"
+            [labels]="pieChartOptions().labels"
+            [doughnut]="pieChartOptions().doughnut"
+            [scheme]="pieChartOptions().scheme"
+            [tooltipDisabled]="false"
+            [tooltipText]="'bottom'"
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)"
+        >
+            <ng-template
+                #tooltipTemplate
+                let-model="model"
+            >
+                <div class="tooltip-content">
+                    <span class="country-name">{{ model.name }}</span>
+                    <div class="medals-info">
+                        <fa-icon
+                            [icon]="faAward"
+                            class="award-icon"
+                        ></fa-icon>
+                        <span class="medals-count">{{ model.value }}</span>
+                    </div>
+                </div>
+            </ng-template>
+        </ngx-charts-pie-chart>
+    </div>
+</section>

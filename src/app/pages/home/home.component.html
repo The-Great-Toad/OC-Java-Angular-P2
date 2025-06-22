@@ -1,8 +1,0 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-
-<!-- [scheme]="colorScheme" -->
-<!-- [legendPosition]="legendPosition" -->
-<ngx-charts-pie-chart [view]="view" [results]="results" [gradient]="gradient" [legend]="showLegend" [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
-</ngx-charts-pie-chart>
