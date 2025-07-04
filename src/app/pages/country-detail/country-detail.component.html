@@ -1,56 +1,37 @@
 <main>
     @if (country()) {
+    <!-- Details -->
     <app-details-block [data]="detailsBlockData()"></app-details-block>
 
+    <!-- Line chart -->
     <div class="chart-wrapper">
-        <ngx-charts-line-chart
-            [scheme]="colorScheme"
-            [legend]="legend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxis]="xAxis"
-            [yAxis]="yAxis"
-            [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel"
-            [timeline]="timeline"
-            [results]="lineChartData()"
-        >
-            <ng-template
-                #seriesTooltipTemplate
-                let-model="model"
-            >
+        <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend"
+                               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                               [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
+                               [yAxisLabel]="yAxisLabel" [timeline]="timeline"
+                               [results]="lineChartData()">
+            <!-- Chart Tooltip -->
+            <ng-template #seriesTooltipTemplate let-model="model">
                 <div class="tooltip-content">
                     <div class="medals-info">
-                        <fa-icon
-                            [icon]="faAward"
-                            class="award-icon"
-                        ></fa-icon>
-                        <span class="medals-count">{{ model[0].value }}</span>
+                        <fa-icon [icon]="faAward" class="award-icon"></fa-icon>
+                        <span class="medals-count">{{
+                            model[0].value
+                            }}</span>
                     </div>
                 </div>
             </ng-template>
         </ngx-charts-line-chart>
     </div>
     } @else {
-    <img
-        src="assets/Olympic_rings.svg"
-        alt="olympic-circles"
-        class="olympic-circles"
-    />
-    <p
-        class="error-message"
-        [innerHTML]="errorMessage"
-    ></p>
+    <!-- Error -->
+    <app-error [errorMessage]="errorMessage"></app-error>
     }
+
+    <!-- Return button -->
     <div class="btn-container">
-        <button
-            class="btn"
-            [routerLink]="'/'"
-        >
-            <fa-icon
-                [icon]="faRightFromBracket"
-                class="award-icon"
-            ></fa-icon>
+        <button class="btn" routerLink="/">
+            <fa-icon [icon]="faRightFromBracket" class="award-icon"></fa-icon>
             Back to the list
         </button>
     </div>

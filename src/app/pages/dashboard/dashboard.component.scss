@@ -33,8 +33,6 @@
 
 /* Adjust librairy 'ngx-charts' CSS - https://github.com/swimlane/ngx-charts/blob/master/projects/swimlane/ngx-charts/src/lib/common/tooltip/tooltip.component.scss */
 ::ng-deep .ngx-charts-tooltip-content {
-  opacity: 1 !important; // For testing purposes
-
   &.type-tooltip {
     color: var(--label-text-color);
     background: var(--label-bg-color) !important;

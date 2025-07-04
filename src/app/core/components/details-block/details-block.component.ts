@@ -1,14 +1,5 @@
 import { Component, input } from '@angular/core';
-
-export interface DetailsBlockData {
-  title: string;
-  details: Details[];
-}
-
-export interface Details {
-  label: string;
-  value: number | string;
-}
+import { DetailsBlockData } from '../../models/details.interfaces';
 
 @Component({
   selector: 'app-details-block',

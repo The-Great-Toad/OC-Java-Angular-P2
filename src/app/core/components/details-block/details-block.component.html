@@ -1,12 +1,11 @@
 <section id="details-block">
+    <!-- Title -->
     <h2 class="title">{{ data().title }}</h2>
 
+    <!-- Details -->
     <div class="details-container">
         @for (item of data().details; track $index) {
-        <div
-            id="detail-{{ $index }}"
-            class="detail"
-        >
+        <div id="detail-{{ $index }}" class="detail">
             <span class="label">{{ item.label }}</span>
             <strong class="value">{{ item.value }}</strong>
         </div>
