@@ -1,4 +1,4 @@
-import { PieChartData } from '../ngx-charts/pie-chart-data.interface';
+import { PieChartData } from '../ngx-charts/pie-chart/pie-chart-data.interface';
 import { OlympicCountry } from '../olympics.interfaces';
 
 /**

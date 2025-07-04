@@ -1,4 +1,5 @@
 <section>
+    @if (olympicCountries().length > 0) {
     <h2 class="title">Medals per Country</h2>
 
     <div class="details-container">
@@ -24,8 +25,6 @@
             [tooltipDisabled]="false"
             [tooltipText]="'bottom'"
             (select)="onSelect($event)"
-            (activate)="onActivate($event)"
-            (deactivate)="onDeactivate($event)"
         >
             <ng-template
                 #tooltipTemplate
@@ -44,4 +43,15 @@
             </ng-template>
         </ngx-charts-pie-chart>
     </div>
+    } @else {
+    <img
+        src="assets/Olympic_rings.svg"
+        alt="olympic-circles"
+        class="olympic-circles"
+    />
+    <p
+        class="error-message"
+        [innerHTML]="errorMessage"
+    ></p>
+    }
 </section>
