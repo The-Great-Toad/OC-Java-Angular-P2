@@ -1,13 +1,6 @@
-import {
-  Component,
-  computed,
-  inject,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Color, NgxChartsModule } from '@swimlane/ngx-charts';
-import { filter, Subscription, take } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { mapToPieChartData } from 'src/app/core/models/mappers/chart-data.mapper';
 import {
   PieChartClickedData,
@@ -19,29 +12,34 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAward } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/module.d-CnjH8Dlt';
+import { DetailsBlockComponent } from 'src/app/core/components/details-block/details-block.component';
+import { ErrorComponent } from '../../core/components/error/error.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgxChartsModule, FontAwesomeModule],
+  imports: [
+    NgxChartsModule,
+    FontAwesomeModule,
+    DetailsBlockComponent,
+    ErrorComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent {
   private olympicService = inject(OlympicService);
   private router = inject(Router);
 
-  private subscriptions: Subscription[] = [];
   public olympics$!: Subscription;
   public olympicCountries = signal<OlympicCountry[]>([]);
   public totalOlympicsNb = signal<number>(0);
   public faAward = faAward;
   public errorMessage: string =
     'There was an error loading the Olympic data.<br> Please try again later.';
-  public errorDetails = signal<string | null>(null);
 
+  // Chart configuration
   public pieChartData = signal<PieChartData[]>([]);
-  // view: [700, 400],
   public pieChartOptions = computed<PieChartOptions>(() => ({
     results: this.pieChartData(),
     trimLabels: false,
@@ -60,14 +58,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } as Color,
   }));
 
-  ngOnInit(): void {
-    this.fetchOlympicData();
-  }
+  /**
+   * Provides the data for the details block component.
+   * It includes the title and details about the number of Olympics and countries.
+   */
+  public detailsBlockData = computed(() => {
+    return {
+      title: 'Medals per Country',
+      details: [
+        {
+          label: 'Number of olympics',
+          value: this.totalOlympicsNb(),
+        },
+        {
+          label: 'Number of countries',
+          value: this.olympicCountries().length,
+        },
+      ],
+    };
+  });
 
-  private fetchOlympicData() {
+  /**
+   * Initializes the component and fetches the Olympic data.
+   * It subscribes to the Olympic service to get the list of countries
+   * and maps the data to display in the pie chart.
+   */
+  constructor() {
     this.olympics$ = this.olympicService
       .getOlympics()
       .pipe(
+        takeUntilDestroyed(),
         filter(
           (countries: OlympicCountry[]) => countries && countries.length > 0
         )
@@ -78,14 +98,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.pieChartData.set(mapToPieChartData(olympicCountries));
         console.log('pieChartData:', this.pieChartData());
       });
-
-    this.subscriptions.push(this.olympics$);
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
+  /**
+   * Redirects to the detail page of the clicked item in the pie chart.
+   *
+   * @param data The data of the clicked pie chart item.
+   */
   public onSelect(data: PieChartClickedData): void {
     console.log('Item clicked', data);
     if (data && data.name) {
@@ -94,12 +113,4 @@ export class DashboardComponent implements OnInit, OnDestroy {
       console.warn('No valid data to navigate to detail');
     }
   }
-
-  //   public onActivate(data: any): void {
-  //     console.log('Activate', JSON.parse(JSON.stringify(data)));
-  //   }
-
-  //   public onDeactivate(data: any): void {
-  //     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  //   }
 }
