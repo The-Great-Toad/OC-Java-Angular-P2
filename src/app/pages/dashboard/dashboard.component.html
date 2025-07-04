@@ -1,17 +1,6 @@
-<section>
+<main>
     @if (olympicCountries().length > 0) {
-    <h2 class="title">Medals per Country</h2>
-
-    <div class="details-container">
-        <div class="nb-of-olympics">
-            <span class="label">Number of olympics</span>
-            <strong class="value">{{ totalOlympicsNb() }}</strong>
-        </div>
-        <div class="nb-of-countries">
-            <span class="label">Number of countries</span>
-            <strong class="value">{{ olympicCountries().length }}</strong>
-        </div>
-    </div>
+    <app-details-block [data]="detailsBlockData()"></app-details-block>
 
     <div class="chart-wrapper">
         <!-- [view]="pieChartOptions().view" -->
@@ -54,4 +43,4 @@
         [innerHTML]="errorMessage"
     ></p>
     }
-</section>
+</main>

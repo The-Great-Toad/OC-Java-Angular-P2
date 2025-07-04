@@ -1,0 +1,15 @@
+<section id="details-block">
+    <h2 class="title">{{ data().title }}</h2>
+
+    <div class="details-container">
+        @for (item of data().details; track $index) {
+        <div
+            id="detail-{{ $index }}"
+            class="detail"
+        >
+            <span class="label">{{ item.label }}</span>
+            <strong class="value">{{ item.value }}</strong>
+        </div>
+        }
+    </div>
+</section>

@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAward, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { Color, NgxChartsModule } from '@swimlane/ngx-charts';
+import { DetailsBlockComponent } from 'src/app/core/components/details-block/details-block.component';
 import {
   LineChartData,
   Series,
@@ -12,7 +13,12 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
   selector: 'app-country-detail',
-  imports: [NgxChartsModule, FontAwesomeModule, RouterModule],
+  imports: [
+    NgxChartsModule,
+    FontAwesomeModule,
+    RouterModule,
+    DetailsBlockComponent,
+  ],
   templateUrl: './country-detail.component.html',
   styleUrl: './country-detail.component.scss',
 })
@@ -51,6 +57,27 @@ export class CountryDetailComponent implements OnInit {
         )
       : 0;
   });
+
+  public detailsBlockData = computed(() => {
+    return {
+      title: this.countryName(),
+      details: [
+        {
+          label: 'Number of entries',
+          value: this.olympicCount(),
+        },
+        {
+          label: 'Total number medals',
+          value: this.medalCount(),
+        },
+        {
+          label: 'Total number of athletes',
+          value: this.athleteCount(),
+        },
+      ],
+    };
+  });
+
   public lineChartData = computed((): LineChartData[] => {
     const country = this.country();
     const series: Series[] = [];

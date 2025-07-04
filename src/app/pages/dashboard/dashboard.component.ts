@@ -20,10 +20,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAward } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/module.d-CnjH8Dlt';
+import { DetailsBlockComponent } from 'src/app/core/components/details-block/details-block.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgxChartsModule, FontAwesomeModule],
+  imports: [NgxChartsModule, FontAwesomeModule, DetailsBlockComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -59,6 +60,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
       ],
     } as Color,
   }));
+
+  public detailsBlockData = computed(() => {
+    return {
+      title: 'Medals per Country',
+      details: [
+        {
+          label: 'Number of olympics',
+          value: this.totalOlympicsNb(),
+        },
+        {
+          label: 'Number of countries',
+          value: this.olympicCountries().length,
+        },
+      ],
+    };
+  });
 
   ngOnInit(): void {
     this.fetchOlympicData();
