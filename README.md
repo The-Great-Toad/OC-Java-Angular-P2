@@ -1,29 +1,53 @@
-# OlympicGamesStarter
+# Olympic Games Starter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+This project is a modern Angular application to visualize Olympic Games results by country, with interactive charts.
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Prerequisites
+
+- Node.js (recommended: 18.x or higher)
+- npm (recommended: 9.x or higher)
+- Angular CLI (recommended: 19.x or higher)
+
+## Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/The-Great-Toad/OC-Java-Angular-P2.git
+   ```
+2. Install dependencies:
+   ```sh
+   cd OC-Java-Angular-P2 # or your newly named directory
+   npm install
+   ```
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Start the development server:
+
+```sh
+ng serve
+```
+
+Navigate to [http://localhost:4200/](http://localhost:4200/). The application will automatically reload if you change any of the source files.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To build the project for production:
 
-## Where to start
+```sh
+ng build
+```
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+The build artifacts will be stored in the `dist/` directory.
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+## Project structure
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
+- `src/app/core/`: contains the business logic (reusable components, models and services folders)
+- `src/app/pages/`: page components (Dashboard, Country Detail, Not Found)
+- `src/assets/mock/olympic.json`: mock data used by the application
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
+## Main features
 
-You're now ready to implement the requested features.
-
-Good luck!
+- Medal visualization by country with interactive pie chart
+- Country detail page with medal evolution chart by years
+- Error handling and 404 navigation
